@@ -2,79 +2,61 @@
  * This is an example project for Detox library
  * When you open an issue, please add a screen which reproduce the problem
  */
-
-import React, {Component} from 'react';
-import {Text, View, TouchableOpacity} from 'react-native';
-import * as Screens from './Screens/index';
-import { Provider } from 'react-redux'
-import {buildLoginNeededAction, configureStore} from "./reducer";
-
-
+import {Provider, useDispatch, useSelector} from "react-redux";
+import {buildLoginNeededAction, configureStore, loginStatusSelector} from "./reducer";
+import React, {useCallback, useEffect} from "react";
+import {TouchableOpacity, View,Text} from "react-native";
+import {ExampleScreen} from "./Screens";
+import {useNetInfo} from "@react-native-community/netinfo";
 const store = configureStore()
 
-export default class App extends Component {
+const LoginButton = () => {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      screen: undefined,
-      screenProps: {},
-    };
+  const dispatch = useDispatch()
 
+  const onPressCallback = useCallback(()=>{
+        dispatch(buildLoginNeededAction())
+      },[dispatch]
+  )
+
+  return (<TouchableOpacity onPress={() => {
+    onPressCallback();
+  }}>
+    <Text style={{color: 'blue', marginBottom: 8, fontSize: 20}}>Example screen</Text>
+  </TouchableOpacity>)
+}
+
+const ButtonScreen:React.FC = () => {
+  return (<View style={{flex: 1, marginTop: 80, marginHorizontal:50}}>
+    <Text style={{textAlign: 'center', fontSize: 30, marginBottom: 10}}>
+      Detox Template
+    </Text>
+    <Text style={{fontSize: 20, marginBottom: 20, color: 'grey'}}>
+      Welcome to the Detox Template. Please add a screen with your example/issue below.
+    </Text>
+    <LoginButton/>
+  </View>)
+}
+
+const Login:React.FC = () =>{
+  const signInState = useSelector(loginStatusSelector);
+  const netInfo = useNetInfo()
+  useEffect(()=>{
+    console.log(netInfo)
+  },[netInfo])
+  if(signInState.requestDone){
+    return <ExampleScreen/>
+  }else {
+    return <ButtonScreen></ButtonScreen>
   }
+}
 
-  componentDidMount() {
-    this.unsubscribe = store.subscribe(()=>{
-      const loginState = store.getState()
-      if(loginState.signInStatus.requestDone){
-        this.setState({screen: Screens.ExampleScreen});
-      }
-    })
-  }
+export const App:React.FC = () => {
 
-  componentWillUnmount() {
-    this.unsubscribe()
-  }
+  return (
+      <Provider store={store}>
+        <Login/>
+      </Provider>
+  )
 
-  renderScreenButton = (title, component) => {
-    return this.renderButton(title, () => {
-      store.dispatch(buildLoginNeededAction())
-    });
-  };
-
-  renderButton = (title, onPressCallback) => {
-    return (
-      <TouchableOpacity onPress={() => {
-        onPressCallback();
-      }}>
-        <Text style={{color: 'blue', marginBottom: 8, fontSize: 20}}>{title}</Text>
-      </TouchableOpacity>
-    );
-  };
-
-  renderScreen = (screen) => {
-    const Screen = this.state.screen;
-    return <Screen setScreen={screen}/>;
-  };
-
-  render() {
-    if (this.state.screen) {
-      const screen = this.state.screen;
-      return this.renderScreen(screen);
-    }
-
-    return (
-        <Provider store={store}>
-      <View style={{flex: 1, marginTop: 80, marginHorizontal:50}}>
-          <Text style={{textAlign: 'center', fontSize: 30, marginBottom: 10}}>
-            Detox Template
-          </Text>
-          <Text style={{fontSize: 20, marginBottom: 20, color: 'grey'}}>
-            Welcome to the Detox Template. Please add a screen with your example/issue below.
-          </Text>
-        {this.renderScreenButton('Example screen', Screens.ExampleScreen)}
-      </View>
-        </Provider>
-    );
-  }
 }
