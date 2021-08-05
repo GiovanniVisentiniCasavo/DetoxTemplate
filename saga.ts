@@ -3,14 +3,18 @@ import auth, {FirebaseAuthTypes} from "@react-native-firebase/auth";
 import {eventChannel, EventChannel} from "redux-saga";
 import {buildLoginCompleteAction, buildLoginRequestAction, buildOngoingAction} from "./reducer";
 import {Action} from "redux";
+import analytics from "@react-native-firebase/analytics";
 
 
 function* fetchUser(action) {
     console.log("callSingIn")
     yield put(buildOngoingAction());
     const instance = auth()
+    const analyticsService = analytics()
     instance.settings.appVerificationDisabledForTesting = true
+    yield call([analyticsService, analyticsService.logEvent],"LogIn");
     const unused = yield call([instance, instance.signInWithPhoneNumber],"+12345678901");
+    yield call([analyticsService, analyticsService.logEvent],"LogInDone");
     console.log("returnSignIn")
     yield put(buildLoginRequestAction());
 

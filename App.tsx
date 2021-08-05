@@ -14,11 +14,13 @@ import {ExampleScreen} from './Screens';
 import {useNetInfo} from '@react-native-community/netinfo';
 import {SignInState} from './state';
 const store = configureStore();
+import analytics from '@react-native-firebase/analytics';
 
 const LoginButton = () => {
   const dispatch = useDispatch();
 
   const onPressCallback = useCallback(() => {
+      analytics().logEvent("Press")
     dispatch(buildLoginNeededAction());
   }, [dispatch]);
 
