@@ -1,12 +1,13 @@
 import { call, put, take, takeLatest } from 'redux-saga/effects'
 import auth, {FirebaseAuthTypes} from "@react-native-firebase/auth";
 import {eventChannel, EventChannel} from "redux-saga";
-import {buildLoginCompleteAction, buildLoginRequestAction} from "./reducer";
+import {buildLoginCompleteAction, buildLoginRequestAction, buildOngoingAction} from "./reducer";
 import {Action} from "redux";
 
 
 function* fetchUser(action) {
     console.log("callSingIn")
+    yield put(buildOngoingAction());
     const instance = auth()
     instance.settings.appVerificationDisabledForTesting = true
     const unused = yield call([instance, instance.signInWithPhoneNumber],"+12345678901");

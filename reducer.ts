@@ -1,4 +1,4 @@
-import {initialState} from './state';
+import {initialState, SignInState} from './state';
 
 import {createAction, createReducer} from '@reduxjs/toolkit';
 import {applyMiddleware, combineReducers, createStore, Store} from "redux";
@@ -9,21 +9,23 @@ import loginSaga from "./saga";
 const SIGN_IN_LOGIN_NEEDED = 'signIn/loginNeeded';
 const SIGN_IN_LOGIN_REQUEST = 'signIn/loginRequest';
 const SIGN_IN_LOGIN_COMPLETE = 'signIn/loginComplete';
+const SIGN_IN_LOGIN_ONGOING = 'signIn/Ongoing';
 
 
 export const loginStatusSelector = (state) => state.signInStatus;
 
+export const buildOngoingAction = createAction<void, typeof SIGN_IN_LOGIN_ONGOING>(SIGN_IN_LOGIN_ONGOING);
 export const buildLoginNeededAction = createAction<void, typeof SIGN_IN_LOGIN_NEEDED>(SIGN_IN_LOGIN_NEEDED);
 export const buildLoginRequestAction = createAction<void, typeof SIGN_IN_LOGIN_REQUEST>(SIGN_IN_LOGIN_REQUEST);
 export const buildLoginCompleteAction = createAction<void, typeof SIGN_IN_LOGIN_COMPLETE>(SIGN_IN_LOGIN_COMPLETE);
 
 export const signInReducer = createReducer(initialState.signInStatus, (builder) =>
     builder
-        .addCase(buildLoginNeededAction, (state) => {
-            state.requestDone=false;
-        })
         .addCase(buildLoginRequestAction, (state, action) => {
-            state.requestDone=true;
+            state.state=SignInState.VerificationCodeNeeded;
+        })
+        .addCase(buildOngoingAction, (state, action) => {
+            state.state=SignInState.OperationOngoing;
         })
 );
 

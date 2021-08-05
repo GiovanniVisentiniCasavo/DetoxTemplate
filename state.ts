@@ -1,10 +1,15 @@
-import {signInReducer} from "./reducer";
-import createSagaMiddleware from "redux-saga";
-import {applyMiddleware, combineReducers, createStore, Store} from "redux";
-import loginSaga from "./saga";
+export enum SignInState {
+    Unknown,
+    OperationOngoing,
+    LoginNeeded,
+    VerificationCodeNeeded,
+    VerificationCodeSent,
+    Completed,
+    Error,
+}
 
 export const initialState = {
     signInStatus: {
-        requestDone:false
+        state: SignInState.Unknown
     },
 };
