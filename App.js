@@ -4,8 +4,13 @@
  */
 
 import React, {Component} from 'react';
-import {Text, View, ScrollView, Animated, TouchableOpacity} from 'react-native';
+import {Text, View, TouchableOpacity} from 'react-native';
 import * as Screens from './Screens/index';
+import { Provider } from 'react-redux'
+import {buildLoginNeededAction, configureStore} from "./reducer";
+
+
+const store = configureStore()
 
 export default class App extends Component {
 
@@ -15,11 +20,25 @@ export default class App extends Component {
       screen: undefined,
       screenProps: {},
     };
+
+  }
+
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(()=>{
+      const loginState = store.getState()
+      if(loginState.signInStatus.requestDone){
+        this.setState({screen: Screens.ExampleScreen});
+      }
+    })
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe()
   }
 
   renderScreenButton = (title, component) => {
     return this.renderButton(title, () => {
-      this.setState({screen: component});
+      store.dispatch(buildLoginNeededAction())
     });
   };
 
@@ -45,6 +64,7 @@ export default class App extends Component {
     }
 
     return (
+        <Provider store={store}>
       <View style={{flex: 1, marginTop: 80, marginHorizontal:50}}>
           <Text style={{textAlign: 'center', fontSize: 30, marginBottom: 10}}>
             Detox Template
@@ -54,6 +74,7 @@ export default class App extends Component {
           </Text>
         {this.renderScreenButton('Example screen', Screens.ExampleScreen)}
       </View>
+        </Provider>
     );
   }
 }
