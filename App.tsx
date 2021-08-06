@@ -7,12 +7,12 @@ import {
   buildLoginNeededAction,
   configureStore,
   loginStatusSelector,
-} from './reducer';
+} from './redux/reducer';
 import React, {useCallback, useEffect} from 'react';
 import {TouchableOpacity, View, Text} from 'react-native';
 import {ExampleScreen} from './Screens';
 import {useNetInfo} from '@react-native-community/netinfo';
-import {SignInState} from './state';
+import {SignInState} from './redux/state';
 const store = configureStore();
 import analytics from '@react-native-firebase/analytics';
 

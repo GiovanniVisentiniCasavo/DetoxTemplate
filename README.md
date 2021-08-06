@@ -118,3 +118,11 @@ Unfortunately, there is no one-size-fits-all formula for that. However, once you
 3. Either edit the preexisting Detox test case (see `e2e/ExampleScreen.e2e.js`), or add your custom one (i.e. under `e2e/`) -- which runs a flow where your problem gets reproduced.
 
 Should you manage to have your issue properly reproduced: `git commit` and `git push` your changes, and share a link to your repo as a comment in your Detox issue!
+
+
+## Setup Firebase
+1. create a new Firebase project, when ask enable also the analytics
+2. enable the mobile phone auth -> Authentication -> Sing-in methond -> phone -> enable
+3. add a fake number `+1 234-567-8901` with code `123456`
+4. copy the GoogleService-info.plist in `ios/DetoxTemplate/`
+5. the first time you will run the app it will show an error saying to add a custom url. Edit the info.plist changing the `app-1-570947136122-ios-e603e8c0d53508422ca9c3` with your project id. 
