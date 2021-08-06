@@ -10,29 +10,18 @@ PODS:
     - React-Core (= 0.63.4)
     - React-jsi (= 0.63.4)
     - ReactCommon/turbomodule/core (= 0.63.4)
-  - Firebase/Analytics (8.4.0):
-    - Firebase/Core
+  - Firebase/AnalyticsWithoutAdIdSupport (8.4.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics/WithoutAdIdSupport (~> 8.4.0)
   - Firebase/Auth (8.4.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 8.4.0)
-  - Firebase/Core (8.4.0):
-    - Firebase/CoreOnly
-    - FirebaseAnalytics (~> 8.4.0)
   - Firebase/CoreOnly (8.4.0):
     - FirebaseCore (= 8.4.0)
-  - FirebaseAnalytics (8.4.0):
-    - FirebaseAnalytics/AdIdSupport (= 8.4.0)
+  - FirebaseAnalytics/WithoutAdIdSupport (8.4.0):
     - FirebaseCore (~> 8.0)
     - FirebaseInstallations (~> 8.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
-    - GoogleUtilities/MethodSwizzler (~> 7.4)
-    - GoogleUtilities/Network (~> 7.4)
-    - "GoogleUtilities/NSData+zlib (~> 7.4)"
-    - nanopb (~> 2.30908.0)
-  - FirebaseAnalytics/AdIdSupport (8.4.0):
-    - FirebaseCore (~> 8.0)
-    - FirebaseInstallations (~> 8.0)
-    - GoogleAppMeasurement (= 8.4.0)
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 8.4.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
     - GoogleUtilities/MethodSwizzler (~> 7.4)
     - GoogleUtilities/Network (~> 7.4)
@@ -124,14 +113,7 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
-  - GoogleAppMeasurement (8.4.0):
-    - GoogleAppMeasurement/AdIdSupport (= 8.4.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
-    - GoogleUtilities/MethodSwizzler (~> 7.4)
-    - GoogleUtilities/Network (~> 7.4)
-    - "GoogleUtilities/NSData+zlib (~> 7.4)"
-    - nanopb (~> 2.30908.0)
-  - GoogleAppMeasurement/AdIdSupport (8.4.0):
+  - GoogleAppMeasurement/WithoutAdIdSupport (8.4.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
     - GoogleUtilities/MethodSwizzler (~> 7.4)
     - GoogleUtilities/Network (~> 7.4)
@@ -398,7 +380,7 @@ PODS:
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
   - RNFBAnalytics (12.4.0):
-    - Firebase/Analytics (= 8.4.0)
+    - Firebase/AnalyticsWithoutAdIdSupport (= 8.4.0)
     - React-Core
     - RNFBApp
   - RNFBApp (12.4.0):
@@ -604,12 +586,12 @@ SPEC CHECKSUMS:
   React-RCTText: 5c51df3f08cb9dedc6e790161195d12bac06101c
   React-RCTVibration: ae4f914cfe8de7d4de95ae1ea6cc8f6315d73d9d
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
-  RNFBAnalytics: be6180b4a5b4c7675f54278d341a653cf3ac59ec
+  RNFBAnalytics: 0fbe0c6de4eddc25ae1cb62fb5514bcafdd4ab6c
   RNFBApp: 97b2da195d4606716b284a7c8a988dd8ed5cec41
   RNFBAuth: 63a3ca8a290937f73fa90d3bf37766458ce03e17
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: f6767e522349eeb7fa9efd347fb7839626880855
+PODFILE CHECKSUM: 0e67c298817f46dcea6bdf3df6ab32962959c99e
 
 COCOAPODS: 1.10.1

@@ -23,6 +23,8 @@ target 'DetoxTemplate' do
    end
 end
 
+$RNFirebaseAnalyticsWithoutAdIdSupport=true
+
 target 'DetoxTemplate-tvOS' do
   # Pods for DetoxTemplate-tvOS
 
